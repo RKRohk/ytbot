@@ -28,8 +28,11 @@ def downloadVideo(url: str, client: Client, message: Message) -> str:
         if d['status'] == 'downloading':
             percentage = d["_percent_str"]
             eta = d["_eta_str"]
-            message.edit_text(
-                f'Downloaded: {percentage}\nTime remaining: {eta}s')
+            try:
+                message.edit_text(
+                    f'Downloaded: {percentage}\nTime remaining: {eta}s')
+            except Exception as e:
+                print("Exception : {e}")
 
         elif d['status'] == 'finished':
             message.edit_text("Uploading file....")
