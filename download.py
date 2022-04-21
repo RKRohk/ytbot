@@ -39,6 +39,7 @@ def downloadVideo(url: str, client: Client, message: Message) -> str:
             message.delete()
 
     ydl_opts = {
+        'hls_prefer_native': True,
         'logger': MyLogger(),
         'progress_hooks': [my_hook],
     }

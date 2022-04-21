@@ -1,4 +1,5 @@
 import asyncio
+from tkinter import E
 from pyrogram import Client
 from pyrogram.types import BotCommand, Message
 import pyrogram.filters as filters
@@ -23,8 +24,8 @@ def main():
         # validate url
         try:
             downloadVideo(url=url, client=client, message=sent_message)
-        except:
-            print("Something went wrong")
+        except Exception as e:
+            print("Something went wrong: ", e)
             message.reply("something went wrong! Please try again later")
 
     app.run()
