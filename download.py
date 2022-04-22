@@ -30,9 +30,9 @@ def downloadVideo(url: str, client: Client, message: Message) -> str:
             eta = d["_eta_str"]
             try:
                 message.edit_text(
-                    f'Downloaded: {percentage}\nTime remaining: {eta}s')
+                    f'Downloaded: {percentage}\nTime remaining: {eta}')
             except Exception as e:
-                print("Exception : {e}")
+                print(f"Exception : {e}")
 
         elif d['status'] == 'finished':
             message.edit_text("Uploading file....")
