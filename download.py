@@ -19,6 +19,14 @@ class MyLogger(object):
         print(msg)
 
 
+def progress(current, total, client: Client, message: Message):
+    try:
+        message.edit_text(f"Uploaded {current * 100 / total:.1f}%")
+    except Exception as e:
+        message.edit_text("Exception occured while uploading....trying again")
+        print(f"Error updating upload status: {e}")
+
+
 def createOpts(client: Client, message: Message):
     print("returning hook")
 
@@ -38,7 +46,8 @@ def downloadVideo(url: str, client: Client, message: Message) -> str:
             message.edit_text("Uploading file....")
             client.send_chat_action(message.chat.id, action="upload_video")
             filename = d['filename']
-            client.send_video(message.chat.id, filename)
+            client.send_video(message.chat.id, filename,
+                              progress=progress, progress_args=(client, message))
             message.delete()
 
     ydl_opts = {
